@@ -4,13 +4,13 @@ Biz dev big data orienté objet
 
 ## Etat de l'art - Recherche 
 
-### Source Julien:
+### Source Julien-Yacine:
 
 * extraction des donnees dans des pdf avec python: 
   * site web: https://pypi.org/project/minecart/
   * git: https://github.com/felipeochoa/minecart
 
-### Source thomas:
+### Source Thomas:
 
 * resumé de documents textuels:
   * https://hackernoon.com/text-summarization-using-keras-models-366b002408d9 
