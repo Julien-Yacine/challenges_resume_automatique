@@ -19,5 +19,5 @@ Nous sommes ici simplement pour révolutionner le biz de la mise en résumé de 
   * https://github.com/llSourcell/How_to_make_a_text_summarizer 
   * https://hackernoon.com/building-a-monte-carlo-markov-chain-pipeline-using-luigi-jocf3223 
   * video du plagiaire siraj: https://www.youtube.com/watch?v=ogrJaOIuBx4
-  
+  * https://blog.keras.io/a-ten-minute-introduction-to-sequence-to-sequence-learning-in-keras.html
   
