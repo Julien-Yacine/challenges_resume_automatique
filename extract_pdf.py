@@ -52,6 +52,7 @@ class extract_pdf:
                 interpreter.process_page(page)
 
             text = retstr.getvalue()
+            text = text.decode('utf-8')
             print("Longueur du doc : ")
             print(len(text))
             print("Début du doc : ")
