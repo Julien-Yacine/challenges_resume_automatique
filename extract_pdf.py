@@ -21,7 +21,9 @@ nltk.download('averaged_perceptron_tagger')
 from nltk.corpus import stopwords
 from nltk.tokenize import sent_tokenize, word_tokenize
 
+
 class extract_pdf:
+
     def __init__(self, path, langage="french"):
         self.path = path
         self.allfiles = [f for f in listdir(self.path) if isfile(join(self.path, f))]
@@ -35,10 +37,10 @@ class extract_pdf:
         list_txt = list()
         for files in self.allfiles:
             rsrcmgr = PDFResourceManager()
-            retstr = StringIO()
+            retstr = BytesIO()
             codec = 'utf-8'
             laparams = LAParams()
-            device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
+            device = HTMLConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
             print(files)
             fp = open(pdf_folder / files, 'rb')
             interpreter = PDFPageInterpreter(rsrcmgr, device)
@@ -46,7 +48,7 @@ class extract_pdf:
             maxpages = 0
             caching = True
             pagenos = set()
-
+            # text = files
             for page in PDFPage.get_pages(fp, pagenos, maxpages=maxpages, password=password, caching=caching,
                                           check_extractable=True):
                 interpreter.process_page(page)
@@ -66,6 +68,7 @@ class extract_pdf:
         return list_txt
 
     def prepare_sentence(self, list_txt):
+
         stop_words = set(stopwords.words(self.langage))
         clean_text_list = list()
         # Retrait de la ponctuation
@@ -97,6 +100,26 @@ class extract_pdf:
             clean_text_list.append(text)
         return clean_text_list
 
-toto = extract_pdf('./echantillons_pdf')
-toto2 = toto.convert_pdf_to_txt()
-toto3 = toto.prepare_sentence(toto2)
+    def export_text(self, list_txt):
+
+        for sentence in list_txt:
+            text_file = open("./sample.txt", "w")
+            n = text_file.write(sentence)
+            text_file.close()
+
+    def extract_specific_text(self, list_txt, type_of_text):
+
+        if type_of_text == 'title':
+            regex = r'HelveticaNeueLTStd-Md\'; font-size:41px">(.*?)\n<br></span></div>'
+        if type_of_text == 'paragraph':
+            regex = r'DINOT-Regular\'; font-size:11px">(.*?)</span><span style="font-family: b\'BYVFCF+'
+        list_specific_t = list()
+        for sentence in list_txt:
+            elements_to_grep = re.findall(regex, sentence, re.DOTALL)
+            list_specific_t.append(elements_to_grep)
+        return list_specific_t
+
+extract20min = extract_pdf('./echantillons_pdf/')
+text_html = extract20min.convert_pdf_to_txt()
+title20min = extract20min.extract_specific_text(text_html,'title')
+paragraph20min = extract20min.extract_specific_text(text_html,'paragraph')
