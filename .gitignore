@@ -1,2 +1,3 @@
 /datas/*
 .ipynb_checkpoints/*
+*.ipynb
