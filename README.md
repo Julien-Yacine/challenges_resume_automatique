@@ -11,6 +11,11 @@ Nous sommes ici simplement pour révolutionner le biz de la mise en résumé de 
 * extraction des donnees dans des pdf avec python: 
   * site web: https://pypi.org/project/minecart/
   * git: https://github.com/felipeochoa/minecart
+* concernant le monde de l'IA:
+  * https://blog.floydhub.com/gentle-introduction-to-text-summarization-in-machine-learning/ 
+  * https://camembert-model.fr/
+  * https://lesdieuxducode.com/blog/2019/4/bert--le-transformer-model-qui-sentraine-et-qui-represente
+  * https://paperswithcode.com/sota
 
 ### Source Thomas:
 
