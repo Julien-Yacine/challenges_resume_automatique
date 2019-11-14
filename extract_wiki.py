@@ -40,7 +40,14 @@ class extract_portal_wikipedia:
             if resume.exists():
                 print(f'{url} existe')
                 resumes.append(resume.summary)
-                articles.append(resume.text) 
+                if resume.text!='' and resume.text != None:
+                    article = resume.text
+                    #article = re.search("\\n\\n", article).start()
+                    article = re.sub('(\\n\\n).*(\\n)', "", article)
+                    article = re.sub("\\n", "", article)
+                    articles.append(article)
+                else:
+                    articles.append(resume.text) 
                 titres.append(resume.title)
             else:
                 print(f"{url} n'existe pas, on essaie donc {url.replace('_', ' ')}")
@@ -51,7 +58,12 @@ class extract_portal_wikipedia:
                     resume = None
                 else:
                     resumes.append(resume.summary)
-                    articles.append(resume.text) 
+                    if resume.text!='':
+                        article = re.sub('(\\n\\n).*(\\n)', "", article)
+                        article = re.sub("\\n", "", article)
+                        articles.append(article)
+                    else:
+                        articles.append(resume.text) 
                     titres.append(resume.title)
             del(url)
 
@@ -63,3 +75,7 @@ resumes = portail_economie.extract_resumes(url_economie[0:20])
 
 import pandas as pnd
 df = pnd.DataFrame(resumes)
+
+df_transpose = df.T
+df_transpose.columns = ['Titre', 'Resume', 'Texte']
+df_transpose['summary_lenght']=df_transpose['Resume'].apply(len)

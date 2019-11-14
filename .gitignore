@@ -1,5 +1,8 @@
 *.7z
 *.csv
 *.pdf
-
 .vscode
+/datas/*
+.ipynb_checkpoints/*
+.ipynb
+.idea/*
