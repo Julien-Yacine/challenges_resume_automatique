@@ -1,4 +1,3 @@
-import wikipedia
 import requests
 from bs4 import BeautifulSoup
 import time
@@ -6,6 +5,7 @@ import numpy as np
 import re
 from urllib.parse import unquote
 import wikipediaapi
+import pandas as pnd
 
 class extract_portal_wikipedia:
     
@@ -39,7 +39,7 @@ class extract_portal_wikipedia:
             resume = wiki_wiki.page(url)
             if resume.exists():
                 print(f'{url} existe')
-                resumes.append(resume.summary)
+                resumes.append(re.sub("\\n", "", resume.summary))
                 if resume.text!='' and resume.text != None:
                     article = resume.text
                     #article = re.search("\\n\\n", article).start()
@@ -57,7 +57,7 @@ class extract_portal_wikipedia:
                     print(f"{url}  & {url.replace('_', ' ')} n'existe pas")
                     resume = None
                 else:
-                    resumes.append(resume.summary)
+                    resumes.append(re.sub("\\n", "", resume.summary))
                     if resume.text!='':
                         article = re.sub('(\\n\\n).*(\\n)', "", article)
                         article = re.sub("\\n", "", article)
@@ -69,6 +69,7 @@ class extract_portal_wikipedia:
 
         return  titres, resumes, articles
 
+
 portail_economie = extract_portal_wikipedia('https://fr.wikipedia.org/w/index.php?title=Cat%C3%A9gorie:Portail:%C3%89conomie/Articles_li%C3%A9s&from=B')
 url_economie = portail_economie.extract_url()
 resumes = portail_economie.extract_resumes(url_economie[0:20])
@@ -79,3 +80,11 @@ df = pnd.DataFrame(resumes)
 df_transpose = df.T
 df_transpose.columns = ['Titre', 'Resume', 'Texte']
 df_transpose['summary_lenght']=df_transpose['Resume'].apply(len)
+
+# Creation du text sans le resume
+text=[]
+for i in enumerate(df_transpose['summary_lenght']):
+    text.append(df_transpose.iloc[i[0],2][i[1]:])
+
+# Ajout au dataframe panda
+df_transpose['text']=text

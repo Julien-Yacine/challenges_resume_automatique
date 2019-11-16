@@ -4,5 +4,5 @@
 .vscode
 /datas/*
 .ipynb_checkpoints/*
-.ipynb
+*.ipynb
 .idea/*
