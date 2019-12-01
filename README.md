@@ -1,8 +1,4 @@
-# TEEEEEEEEEXTMINING
-
-Biz dev big data orienté objet. 
-Nous sommes ici simplement pour révolutionner le biz de la mise en résumé de texte long. 
-
+# Resume automatique de texte
 
 ## Etat de l'art - Recherche 
 
